@@ -4,7 +4,7 @@ import {Loader} from './Loader';
 import {PhotoFrame}  from './PhotoFrame';
 const App = () => {
 
-    const [id,setId] = useState(0);
+    const [id,setId] = useState(1);
     const [url,setUrl] = useState("");
     const [title,setTitle] = useState(""); 
     const [loader,setLoader] = useState(false);
@@ -15,6 +15,7 @@ const App = () => {
        fetch("https://jsonplaceholder.typicode.com/photos/"+id)
        .then((res) => res.json())
        .then((data) => {
+        console.log(data);
         setUrl(data.url);
         setTitle(data.title);
         setLoader(true);
