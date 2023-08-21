@@ -8,6 +8,7 @@ const App = () => {
     const [url,setUrl] = useState("");
     const [title,setTitle] = useState(""); 
     const [loader,setLoader] = useState(false);
+    const [showData,setshowData] = useState(false);
 
     useEffect(()=>{
         setLoader(false);
@@ -22,8 +23,11 @@ const App = () => {
 
     return(
         <div>
-            <input type="number" min="1" max="5000" onChange={(e) => setId(e.target.value)}/>
-            {loader ?  <PhotoFrame url={url} title={title} />: <Loader />}
+            <input type="number" min="1" max="5000" onChange={(e) => {
+                setId(e.target.value);
+                setshowData(true);
+                }}/>
+            {showData ? (loader ? <PhotoFrame url={url} title={title}/> : <Loader />) : ""}
         </div>
     )
 }
