@@ -7,18 +7,16 @@ const App = () => {
     const [id,setId] = useState(1);
     const [url,setUrl] = useState("");
     const [title,setTitle] = useState(""); 
-    const [loader,setLoader] = useState(false);
+    const [loader,setLoader] = useState(true);
     const [showData,setshowData] = useState(false);
 
     useEffect(()=>{
-        setLoader(false);
        fetch("https://jsonplaceholder.typicode.com/photos/"+id)
        .then((res) => res.json())
        .then((data) => {
-        console.log(data);
         setUrl(data.url);
         setTitle(data.title);
-        setLoader(true);
+        setLoader(false);
        });
     },[id])
 
@@ -27,8 +25,9 @@ const App = () => {
             <input type="number" min="1" max="5000" onChange={(e) => {
                 setId(e.target.value);
                 setshowData(true);
+                setLoader(true)
                 }}/>
-            {showData ? (loader ? <PhotoFrame url={url} title={title}/> : <Loader />) : ""}
+            {showData ? (loader ? <Loader /> : url && title && (loader ? <Loader /> : <PhotoFrame url={url} title={title} />)) : ""}
         </div>
     )
 }
